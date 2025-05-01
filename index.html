@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Paseo Virtual</title>
+	<style>
+	body { 
+		margin: 0; 
+		/* Ensure full height for absolute positioning context */
+		height: 100vh;
+		position: relative; /* Creates positioning context for children */
+        overflow: hidden; /* Prevent scrollbars */
+	}
+
+	/* Label styling */
+	#overlay-label {
+		position: absolute;
+		top: 25%;          /* Start from vertical center */
+		left: 50%;         /* Start from horizontal center */
+		transform: translate(-50%, -50%); /* True centering */
+		text-align: center;
+		color: black;
+		font-family: Arial, sans-serif;
+		font-size: 70px;
+		z-index: 100; /* Higher than canvas */
+		pointer-events: none; /* Allow clicks to pass through */
+	}
+	h1 {
+		color: black;
+		font-family: "Century Gothic Regular", Arial, sans-serif;
+		font-size: 100px;      /* Increased size */
+		font-weight: 1000;      /* Bolder weight */
+		letter-spacing: 4px;
+		margin: 0 0 -40px 0;    /* Space between title and subtitle */
+	}
+	.subtitle {
+		color: black;
+		font-family: "Futura Small Caps Light", Arial, sans-serif;
+		font-size: 32px;
+		letter-spacing: 13px;
+	}
+	
+	/* Modal styling */
+	#info-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.8);
+		backdrop-filter: blur(5px);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 300; /* Highest z-index */
+	}
+
+	.modal-content {
+		background: rgba(255,255,255,0.9);
+		padding: 30px;
+		border-radius: 15px;
+		max-width: 500px;
+		text-align: center;
+		box-shadow: 0 0 30px rgba(0,0,0,0.3);
+	}
+
+	#modal-image {
+		max-width: 100%;
+		max-height: 300px;
+		border-radius: 8px;
+		margin-bottom: 20px;
+	}
+
+	#modal-description {
+		color: #333;
+		font-family: Arial, sans-serif;
+		font-size: 16px;
+		line-height: 1.6;
+	}
+
+	/* Playback controls styling */
+	#playback-controls {
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		z-index: 100;
+		background-color: rgba(255, 255, 255, 0.5);
+		padding: 10px;
+		border-radius: 10px;
+	}
+
+	#play-pause-button {
+		width: 100px;
+		height: 30px;
+		font-size: 16px;
+		cursor: pointer;
+	}
+
+	#volume-slider {
+		width: 100px;
+		height: 10px;
+		vertical-align: middle;
+	}
+
+	#volume-label {
+		font-size: 16px;
+		vertical-align: middle;
+		margin-left: 10px;
+	}
+    </style>
+	
+    <!-- Add import map -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Modal -->
+    <div id="info-modal" style="display: none;">
+      <div class="modal-content">
+        <img src="./infospot1.jpg" alt="Demo Image" id="modal-image">
+		<h2 id="modal-title">Titúlo del modal</h2>
+        <p id="modal-description">
+          Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle.
+		  De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.
+        </p>
+      </div>
+    </div>
+
+    <!-- Overlay label -->
+    <div id="overlay-label">
+		<h1>Paseo Virtual</h1>
+		<p class="subtitle">BÁSILICA DE GUADALUPE</p>
+	</div>
+
+    <!-- Audio player -->
+	<audio id="music-player" loop>
+		<source src="./music.mp3" type="audio/mp3">
+		Your browser does not support the audio element.
+	</audio>
+	
+	<!-- Playback controls -->
+	<div id="playback-controls">
+		<button id="play-pause-button">Play</button>
+		<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
+		<span id="volume-label"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16">
+			<path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
+			<path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
+			<path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06"/>
+		  </svg> 50%</span>
+	</div>
+	<!-- Scripts -->
+    <script type="module" src="./main.js"></script>
+    <script type="module" src="./player.js"></script>
+  </body>
+</html>
