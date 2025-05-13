@@ -65,7 +65,7 @@ const hostpotRadius = radius - 10;
 const panoramas = [
     {
         id: 1,
-        image: './pano1.jpg',
+        image: './mapa/1.jpg',
         music: './audio.mp3',
         hotspots: [
             { position: { u: 0.35, v: 0.25 }, target: 2 }
@@ -87,7 +87,7 @@ const panoramas = [
     },
     {
         id: 2,
-        image: './pano2.jpg',
+        image: './mapa/2.jpg',
         music: './audio.mp3',
         hotspots: [
             { position: { u: 0.8, v: 0.3 }, target: 3 }, 
@@ -110,7 +110,7 @@ const panoramas = [
     },    
 	{
         id: 3,
-        image: './pano3.jpg',
+        image: './mapa/3.jpg',
         music: './audio.mp3',
         hotspots: [
             { position: { u: 0.6, v: 0.3 }, target: 2 }
@@ -375,6 +375,8 @@ function updateObjectAnimation(object, time, animParams) {
 
 // Set up OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
+const overlay = document.getElementById('overlay-label');
+const logo = document.getElementById('logo');
 
 // Limit vertical rotation to avoid seeing the top/bottom edges
 controls.minPolarAngle = Math.PI * 0.50; // Restrict looking too far up
@@ -414,6 +416,12 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+// when the user *starts* interacting…
+controls.addEventListener('start', () => {
+  overlay.classList.add('to-corner');
+  logo.style.display = 'none';
+});
 
 // Handle window resize
 window.addEventListener('resize', () => {

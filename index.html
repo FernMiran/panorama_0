@@ -11,6 +11,91 @@
 		position: relative; /* Creates positioning context for children */
         overflow: hidden; /* Prevent scrollbars */
 	}
+	
+	canvas {
+    	touch-action: none;
+	}
+
+	/* Logo */
+    #logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 60px;
+      height: 60px;
+      z-index: 200;           /* above your overlay label and canvas */
+      pointer-events: none;   /* clicks still go through */
+      transition: opacity 0.3s ease;
+    }
+
+    /*  Menu  */
+    #hamburger-menu {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 9999;
+    }
+    #hamburger-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    #hamburger-toggle span {
+      display: block;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    /* Animate to “X” when open */
+    #hamburger-menu.open #hamburger-toggle span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    #hamburger-menu.open #hamburger-toggle span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger-menu.open #hamburger-toggle span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Menu panel */
+    #menu-links {
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+    /* When open, allow it to expand */
+    #hamburger-menu.open #menu-links {
+      max-height: 200px; /* plenty for 4–5 items */
+    }
+    #menu-links li {
+      border-bottom: 1px solid #eee;
+    }
+    #menu-links li:last-child {
+      border-bottom: none;
+    }
+    #menu-links a {
+      display: block;
+      padding: 10px 15px;
+      color: #333;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    #menu-links a:hover {
+      background-color: #f0f0f0;
+    }
 
 	/* Label styling */
 	#overlay-label {
@@ -24,6 +109,7 @@
 		font-size: 70px;
 		z-index: 100; /* Higher than canvas */
 		pointer-events: none; /* Allow clicks to pass through */
+		transition: top 0.5s ease, left 0.5s ease, transform 0.5s ease;
 	}
 	h1 {
 		color: black;
@@ -33,6 +119,11 @@
 		letter-spacing: 4px;
 		margin: 0 0 -40px 0;    /* Space between title and subtitle */
 	}
+	.to-corner {
+		top: 2% !important;
+		left: 2% !important;
+		transform: none !important;
+  	}
 	.subtitle {
 		color: black;
 		font-family: "Futura Small Caps Light", Arial, sans-serif;
@@ -78,37 +169,81 @@
 		line-height: 1.6;
 	}
 
-	/* Playback controls styling */
-	#playback-controls {
+	/* Playback controls */
+	#player-container {
 		position: absolute;
 		bottom: 20px;
-		left: 20px;
+		left: 50%;
+		transform: translateX(-50%);
 		z-index: 100;
-		background-color: rgba(255, 255, 255, 0.5);
-		padding: 10px;
-		border-radius: 10px;
+		background-color: rgba(0, 0, 0, 0.2);
+		padding: 15px 20px;
+		border-radius: 12px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+		color: #fff;
+	}
+
+	/* playback controls row */
+	#playback-controls {
+		display: flex;
+		align-items: center;
+		gap: 12px;
 	}
 
 	#play-pause-button {
-		width: 100px;
-		height: 30px;
-		font-size: 16px;
+		width: 80px;
+		height: 32px;
+		font-size: 14px;
 		cursor: pointer;
+		border: none;
+		border-radius: 6px;
+		background-color: white;
+		color: black;
 	}
 
 	#volume-slider {
-		width: 100px;
-		height: 10px;
-		vertical-align: middle;
+		width: 120px;
+		height: 4px;
+		cursor: pointer;
 	}
 
 	#volume-label {
-		font-size: 16px;
-		vertical-align: middle;
-		margin-left: 10px;
+		font-size: 14px;
+	}
+
+	/* progress bar styling */
+	#progress-bar {
+		width: 100%;
+		height: 6px;
+		cursor: pointer;
+		-webkit-appearance: none;
+		background: white;
+		border-radius: 3px;
+	}
+	#progress-bar::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: orangered;
+		cursor: pointer;
+		margin-top: -3px; /* center thumb vertically */
+	}
+
+	/* time labels */
+	#time-display {
+		font-size: 13px;
+		text-align: center;
+		line-height: 1;
 	}
     </style>
 	
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
     <!-- Add import map -->
     <script type="importmap">
       {
@@ -132,6 +267,24 @@
       </div>
     </div>
 
+	<!-- Logo in top-left -->
+	<img id="logo" src="./logo-g500.png" alt="My Logo">
+
+	<!-- Hamburger menu -->
+	<div id="hamburger-menu">
+		<button id="hamburger-toggle" aria-label="Toggle menu">
+		<span></span>
+		<span></span>
+		<span></span>
+		</button>
+		<ul id="menu-links">
+		<li><a href="#home">Home</a></li>
+		<li><a href="#gallery">Gallery</a></li>
+		<li><a href="#about">About</a></li>
+		<li><a href="#contact">Contact</a></li>
+		</ul>
+	</div>
+	
     <!-- Overlay label -->
     <div id="overlay-label">
 		<h1>Paseo Virtual</h1>
@@ -143,19 +296,29 @@
 		<source src="./music.mp3" type="audio/mp3">
 		Your browser does not support the audio element.
 	</audio>
-	
-	<!-- Playback controls -->
-	<div id="playback-controls">
-		<button id="play-pause-button">Play</button>
-		<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
-		<span id="volume-label"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16">
-			<path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
-			<path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
-			<path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06"/>
-		  </svg> 50%</span>
+	<div id="player-container">
+		<!-- Playback controls -->
+		<div id="playback-controls">
+			<button id="play-pause-button">></button>
+			<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
+			<span id="volume-label">Volume: 50%</span>
+		</div>
+
+		<!-- Progress bar -->
+		<input id="progress-bar" type="range" min="0" max="100" value="0" step="0.1">
+
+		<!-- Time display -->
+		<div id="time-display">
+			<span id="current-time">0:00</span>
+			/
+			<span id="duration">0:00</span>
+			(<span id="remaining-time">-0:00</span>)
+		</div>
 	</div>
+
 	<!-- Scripts -->
     <script type="module" src="./main.js"></script>
     <script type="module" src="./player.js"></script>
+    <script type="module" src="./label.js"></script>
   </body>
 </html>

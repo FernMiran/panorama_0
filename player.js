@@ -4,6 +4,32 @@ const playPauseButton = document.getElementById('play-pause-button');
 const volumeSlider = document.getElementById('volume-slider');
 const volumeLabel = document.getElementById('volume-label');
 
+const currentTimeEl   = document.getElementById('current-time');
+const durationEl      = document.getElementById('duration');
+const remainingTimeEl = document.getElementById('remaining-time');
+
+// Utility: format seconds as M:SS
+function formatTime(sec) {
+  const minutes = Math.floor(sec / 60);
+  const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
+  return `${minutes}:${seconds}`;
+}
+
+// When metadata is loaded, display total duration
+musicPlayer.addEventListener('loadedmetadata', () => {
+  durationEl.textContent      = formatTime(musicPlayer.duration);
+  remainingTimeEl.textContent = `-${formatTime(musicPlayer.duration)}`;
+});
+
+// On each time update, refresh current & remaining times
+musicPlayer.addEventListener('timeupdate', () => {
+  const current  = musicPlayer.currentTime;
+  const duration = musicPlayer.duration;
+
+  currentTimeEl.textContent   = formatTime(current);
+  remainingTimeEl.textContent = `-${formatTime(duration - current)}`;
+});
+
 // Set the initial volume
 musicPlayer.volume = volumeSlider.value;
 
@@ -11,18 +37,20 @@ musicPlayer.volume = volumeSlider.value;
 playPauseButton.addEventListener('click', () => {
   if (musicPlayer.paused) {
     musicPlayer.play();
-    playPauseButton.textContent = 'Pause';
+    playPauseButton.textContent = '||';
   } else {
     musicPlayer.pause();
-    playPauseButton.textContent = 'Play';
+    playPauseButton.textContent = '>';
   }
 });
 
 volumeSlider.addEventListener('input', () => {
   musicPlayer.volume = volumeSlider.value;
-  volumeLabel.textContent = `Volume: ${Math.round(volumeSlider.value * 100)}%`;
+  volumeLabel.textContent = `<|)): ${Math.round(volumeSlider.value * 100)}%`;
 });
 
-// Start playing music when the page loads
-musicPlayer.play();
-playPauseButton.textContent = 'Pause'; // Uncomment to start playing music automatically
+// Auto-start on page load
+window.addEventListener('load', () => {
+  musicPlayer.play();
+  playPauseButton.textContent = '||';
+});
