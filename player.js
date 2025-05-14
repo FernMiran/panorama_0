@@ -46,7 +46,7 @@ playPauseButton.addEventListener('click', () => {
 
 volumeSlider.addEventListener('input', () => {
   musicPlayer.volume = volumeSlider.value;
-  volumeLabel.textContent = `<|)): ${Math.round(volumeSlider.value * 100)}%`;
+  volumeLabel.textContent = `Volumen: ${Math.round(volumeSlider.value * 100)}%`;
 });
 
 // Auto-start on page load

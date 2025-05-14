@@ -76,10 +76,10 @@ const panoramas = [
         ],
         infospots: [             
             { 
-                position: { u: 0.5, v: 0.4 }, 
-                image: [ './mapa/2/2a.jpg', './mapa/2/2b.jpg'],
-                title: '', 
-                description: ''
+                position: { u: 0.3, v: 0.2 }, 
+                image: [ './mapa/1/1a.jpg' ],
+                title: 'Bienvenido al paseo virtual de la Básilica de Guadalupe', 
+                description: 'Para navegar por el recorrido, utiliza el mouse o el touchpad. Haz clic en los puntos de interés para obtener más información.'
             }
         ]
     },
@@ -785,7 +785,7 @@ animate();
 // when the user *starts* interacting…
 controls.addEventListener('start', () => {
   overlay.classList.add('to-corner');
-  logo.style.display = 'none';
+//   logo.style.display = 'none';
 });
 
 // Handle window resize
