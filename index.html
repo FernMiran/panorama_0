@@ -174,10 +174,13 @@
 
 	/* Image container styling */
 	#modal-image-container {
+		display: flex;
 		position: relative;
 		max-width: 100%;
-		max-height: 300px;
+		max-height: 80%;
 		margin-bottom: 20px;
+		justify-content: center; /* Horizontal centering */
+		align-items: center; /* Vertical centering */
 	}
 
 	/* Base image styling */
@@ -187,8 +190,8 @@
 		border-radius: 8px;
 		display: none;
 		object-fit: contain; /* Added to fix image scaling */
-		width: 100%; /* Added to fix image scaling, causes image overflowing the modal */
-		height: 100%; /* Added to fix image scaling, causes image overflowing the modal */
+		/* width: 100%;  Added to fix image scaling, causes image overflowing the modal */
+		/* height: 100%;  Added to fix image scaling, causes image overflowing the modal */
 	}
 
 	/* Active image */
@@ -234,7 +237,12 @@
 	}
 
 	.dot.active { background: #717171; }
-	
+
+	@media (max-height: 600px) {
+		#modal-image-container {
+			height: 200px; /* Reduced height for smaller screens */
+		}
+	}
 	/* Playback controls */
 	#player-container {
 		position: absolute;
@@ -375,7 +383,7 @@
 		<div id="playback-controls">
 			<button id="play-pause-button">></button>
 			<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
-			<span id="volume-label">Volume: 50%</span>
+			<span id="volume-label">Volumen: 50%</span>
 		</div>
 
 		<!-- Progress bar -->
