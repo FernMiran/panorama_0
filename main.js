@@ -68,20 +68,18 @@ const panoramas = [
         image: './mapa/1.jpg',
         music: './audio.mp3',
         hotspots: [
-            { position: { u: 0.35, v: 0.25 }, target: 2 }
+            { position: { u: 0.4, v: 0.35 }, target: 22 },
+            { position: { u: 0.5, v: 0.35 }, target: 2 },
+            { position: { u: 0.56, v: 0.35 }, target: 21 },
+            { position: { u: 0.73, v: 0.35 }, target: 20 },
+            { position: { u: 0.85, v: 0.35 }, target: 19 },
         ],
-        infospots: [
+        infospots: [             
             { 
-                position: { u: 0.5, v: 0.3 }, 
-                image: './infospot1.jpg', 
-                title: 'Modal de reliquia muy antigua',
-                description: 'Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle. De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.'
-            },
-            { 
-                position: { u: 0.2, v: 0.3 }, 
-                image: './infospot2.jpg',
-                title: 'Modal de otra reliquia muy antigua', 
-                description: 'Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle. De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.'
+                position: { u: 0.5, v: 0.4 }, 
+                image: [ './mapa/2/2a.jpg', './mapa/2/2b.jpg'],
+                title: '', 
+                description: ''
             }
         ]
     },
@@ -90,21 +88,18 @@ const panoramas = [
         image: './mapa/2.jpg',
         music: './audio.mp3',
         hotspots: [
-            { position: { u: 0.8, v: 0.3 }, target: 3 }, 
-            { position: { u: 0.2, v: 0.2 }, target: 1 }
+            { position: { u: 0.17, v: 0.4 }, target: 22 },
+            { position: { u: 0.35, v: 0.4 }, target: 3 },
+            { position: { u: 0.7, v: 0.4 }, target: 21 },
+            { position: { u: 0.75, v: 0.4 }, target: 20 }
+
         ],
         infospots: [
             { 
-                position: { u: 0.5, v: 0.4 }, 
-                image: './infospot1.jpg', 
-                title: 'Modal de reliquia muy antigua', 
-                description: 'Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle. De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.'
-            },
-            { 
-                position: { u: 0.4, v: 0.3 }, 
-                image: './infospot2.jpg', 
-                title: 'Modal de otra reliquia muy antigua', 
-                description: 'Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle. De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.'
+                position: { u: 0.45, v: 0.4 }, 
+                image: [ './mapa/2/2a.jpg', './mapa/2/2b.jpg'],
+                title: '', 
+                description: ''
             }
         ]
     },    
@@ -113,23 +108,393 @@ const panoramas = [
         image: './mapa/3.jpg',
         music: './audio.mp3',
         hotspots: [
+            { position: { u: 0.1, v: 0.4 }, target: 22 },
+            { position: { u: 0.62, v: 0.4 }, target: 4},
+            { position: { u: 0.82, v: 0.4 }, target: 21 },
+            { position: { u: 0.9, v: 0.4 }, target: 2 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 4,
+        image: './mapa/4.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.08, v: 0.3 }, target: 3 },
+            { position: { u: 0.1, v: 0.2 }, target: 22 },
+            { position: { u: 0.4, v: 0.2 }, target: 5 },
+            { position: { u: 0.6, v: 0.2 }, target: 8 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 5,
+        image: './mapa/5.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.38, v: 0.3 }, target: 6 },
+            { position: { u: 0.77, v: 0.2 }, target: 4 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.3, v: 0.3 }, 
+                image: './infospot1.jpg',
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 6,
+        image: './mapa/6.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.35, v: 0.3 }, target: 7 },
+            { position: { u: 0.91, v: 0.2 }, target: 5 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.6, v: 0.3 }, 
+                image: [ './mapa/6/6a.jpg', './mapa/6/6b.jpg', './mapa/6/6c.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 7,
+        image: './mapa/7.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.22, v: 0.7 }, target: 8 },
+            { position: { u: 0.52, v: 0.3 }, target: 6 }
+        ],
+        infospots: [            
+            {
+                position: { u: 0.33, v: 0.7 }, 
+                image: [ './mapa/6/6a.jpg', './mapa/6/6b.jpg', './mapa/6/6c.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 8,
+        image: './mapa/8.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 7 },
+            { position: { u: 0.58, v: 0.2 }, target: 9 },
+            { position: { u: 0.87, v: 0.2 }, target: 4 },
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 9,
+        image: './mapa/9.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.2 }, target: 8 },
+            { position: { u: 0.32, v: 0.4 }, target: 10 },
+        ],
+        infospots: [
+            {
+                position: { u: 0.27, v: 0.4 },
+                image: [ './mapa/9/9a.jpg', './mapa/9/9b.jpg'],
+                title:  '',
+                description:  ''
+            },
+            {
+                position: { u: 0.9, v: 0.3 },
+                image: './mapa/9/9c.jpg',
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 10,
+        image: './mapa/10.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.47, v: 0.3 }, target: 9 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.61, v: 0.6 },
+                image: [ './mapa/10/10a.jpg', './mapa/10/10b.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 11,
+        image: './mapa/11.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 10 },
+            { position: { u: 0.4, v: 0.6 }, target: 12 },
+            { position: { u: 0.7, v: 0.3 }, target: 13 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 12,
+        image: './mapa/12.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.08, v: 0.2 }, target: 11 },
+            { position: { u: 0.47, v: 0.4 }, target: 121 },
+            { position: { u: 0.87, v: 0.2 }, target: 11 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.1, v: 0.6 },
+                image: [ './mapa/12/12a.jpg', './mapa/12/12b.jpg', './mapa/12/12c.jpg', './mapa/12/12d.jpg'],
+                title:  '',
+                description:  ''
+            },
+            {
+                position: { u: 0.8, v: 0.4 },
+                image: [ './mapa/12/12e.jpg' ],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 13,
+        image: './mapa/13.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.13, v: 0.7 }, target: 11 },
+            { position: { u: 0.65, v: 0.2 }, target: 14 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.39, v: 0.3 },
+                image: [ './mapa/12/12f.jpg', './mapa/12/12g.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 14,
+        image: './mapa/14.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.08, v: 0.7 }, target: 13 },
+            { position: { u: 0.38, v: 0.3 }, target: 15 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 15,
+        image: './mapa/15.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.6 }, target: 14 },
+            { position: { u: 0.55, v: 0.4 }, target: 16 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 16,
+        image: './mapa/16.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 15 },
+            { position: { u: 0.62, v: 0.6 }, target: 162 },
+            { position: { u: 0.9, v: 0.6 }, target: 17 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.37, v: 0.7 },
+                image: [ './mapa/16/16a.jpg', './mapa/16/16b.jpg', './mapa/16/16c.jpg', './mapa/16/16d.jpg', './mapa/16/16e.jpg' ],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 17,
+        image: './mapa/17.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.12, v: 0.4 }, target: 18 },
+            { position: { u: 0.75, v: 0.4 }, target: 16 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 18,
+        image: './mapa/18.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.25, v: 0.3 }, target: 17 },
+            { position: { u: 0.55, v: 0.3 }, target: 19 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.4, v: 0.3 },
+                image: [ './mapa/18/18a.jpg', './mapa/18/18b.jpg', './mapa/18/18c.jpg', './mapa/18/18d.jpg', './mapa/18/18f.jpg' ],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 19,
+        image: './mapa/19.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.27, v: 0.4 }, target: 1 },
+            { position: { u: 0.72, v: 0.35 }, target: 192 },
+            { position: { u: 0.89, v: 0.35 }, target: 18 }
+        ],
+        infospots: [
+        ]
+    },
+    {
+        id: 20,
+        image: './mapa/20.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.9, v: 0.3 }, target: 1 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.7, v: 0.3 },
+                image: [ './mapa/20/20a.jpg', './mapa/20/20b.jpg', './mapa/20/20c.jpg', './mapa/20/20d.jpg', './mapa/20/20f.jpg', './mapa/20/20g.jpg', './mapa/20/20h.jpg', './mapa/20/20i.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 21,
+        image: './mapa/21.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 1 },
+            { position: { u: 0.9, v: 0.3 }, target: 1 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.485, v: 0.4 },
+                image: [ './mapa/21/21a.jpg', './mapa/21/21b.jpg', './mapa/21/21c.jpg', './mapa/21/21d.jpg', './mapa/21/21f.jpg', './mapa/21/21g.jpg', './mapa/21/21h.jpg', './mapa/21/21i.jpg', './mapa/21/21k.jpg', './mapa/21/21l.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 22,
+        image: './mapa/22.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 1 },
+            { position: { u: 0.9, v: 0.3 }, target: 1 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.475, v: 0.3 },
+                image: './mapa/22/22a.jpg',
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 23,
+        image: './mapa/23.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 1 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.8, v: 0.3 },
+                image: [ './mapa/23/23a.jpg', './mapa/23/23b.jpg', './mapa/23/23c.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 24,
+        image: './mapa/24.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.1, v: 0.3 }, target: 1 },
+            { position: { u: 0.9, v: 0.3 }, target: 1 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.425, v: 0.4 },
+                image: [ './mapa/24/24a.jpg', './mapa/24/24b.jpg', './mapa/24/24c.jpg'],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },
+    {
+        id: 121,
+        image: './mapa/121.jpg',
+        music: './audio.mp3',
+        hotspots: [
             { position: { u: 0.6, v: 0.3 }, target: 2 }
         ],
         infospots: [
             {
-                position: { u: 0.7, v: 0.3 }, 
+                position: { u: 0.7, v: 0.3 },
                 image: './infospot1.jpg',
-                title: 'Reliquia muy antigua',
-                description: 'Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle. De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.'
+                title:  '',
+                description:  ''
             },
             {
-                position: { u: 0.9, v: 0.3 }, 
-                image: './infospot2.jpg', 
-                title: 'Modal de otra reliquia muy antigua', 
-                description: 'Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle. De igual manera se muestra esta descripción con más información del mismo objeto exhibido en este modal.'
+                position: { u: 0.9, v: 0.3 },
+                image: './infospot2.jpg',
+                title:  '',
+                description:  ''
             }
         ]
     },
+    {
+        id: 162,
+        image: './mapa/162.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.6, v: 0.3 }, target: 2 }
+        ],
+        infospots: [
+            {
+                position: { u: 0.7, v: 0.3 },
+                image: ['./mapa/162/162a.jpg', './mapa/162/162b.jpg', './mapa/162/162c.jpg', './mapa/162/162d.jpg' ],
+                title:  '',
+                description:  ''
+            }
+        ]
+    },        
+    {
+        id: 192,
+        image: './mapa/192.jpg',
+        music: './audio.mp3',
+        hotspots: [
+            { position: { u: 0.6, v: 0.3 }, target: 2 }
+        ],
+        infospots: [
+        ]
+    }
     // Add more panoramas as needed
 ];
 
@@ -137,7 +502,7 @@ const panoramas = [
 const textureLoader = new THREE.TextureLoader();
 
 // Load info icon texture
-const infoTexture = textureLoader.load('./info.png');
+const infoTexture = textureLoader.load('./info.svg');
 const infoSpriteMaterial = new THREE.SpriteMaterial({
     map: infoTexture,
     transparent: true,
@@ -145,7 +510,7 @@ const infoSpriteMaterial = new THREE.SpriteMaterial({
     depthWrite: false
 });
 
-const iconTexture = textureLoader.load('./location.png', (texture) => {
+const iconTexture = textureLoader.load('./location.svg', (texture) => {
     // FIX: Ensure texture is properly loaded with error handling
     console.log('Hotspot icon loaded successfully');
     
@@ -180,17 +545,17 @@ const spriteMaterial = new THREE.SpriteMaterial({
 const hotspotAnimations = {
     baseSize: 30,
 
-    normalScale: new THREE.Vector2(70, 70),
+    normalScale: new THREE.Vector2(30, 30),
     hoverScale: new THREE.Vector2(90, 90),
 
     pulseSpeed: 0.3,
     pulseAmount: 0.05,
 
     rotationSpeed: 0.02,
-    rotationAmount: 0.1,
+    rotationAmount: 0.7,
 
     normalColor: new THREE.Color(0xffffff),
-    hoverColor: new THREE.Color(0xffffff),
+    hoverColor: new THREE.Color(0xC1C1C1),
 
     lerpSpeed: 0.05
 };
@@ -440,7 +805,7 @@ window.addEventListener('mousemove', (event) => {
 window.addEventListener('click', (event) => {
 	// Close modal
 	const modal = document.getElementById('info-modal');
-    if (modal && modal.style.display !== 'none') {
+    if (modal && event.target === modal) {
         modal.style.display = 'none';
     }
 	
@@ -462,11 +827,65 @@ window.addEventListener('click', (event) => {
         else if (object.userData.type === 'infospot') 
         {
             const modal = document.getElementById('info-modal');
-
-            // Update modal content (adjust IDs to match your HTML)
+            const images = Array.isArray(object.userData.image) 
+                ? object.userData.image 
+                : [object.userData.image];
+                
+            // Update modal content
             modal.querySelector('#modal-title').textContent = object.userData.title;
             modal.querySelector('#modal-description').textContent = object.userData.description;
-            modal.querySelector('#modal-image').src = object.userData.image;
+
+            // Handle image container
+            const container = modal.querySelector('#modal-image-container');
+            container.innerHTML = ''; // Clear previous content
+
+            if (images.length > 1) {
+                // Generate carousel HTML
+                container.innerHTML = `
+                    ${images.map((img, i) => `
+                    <img src="${img}" class="carousel-image ${i === 0 ? 'active' : ''}">
+                    `).join('')}
+                    <button class="carousel-prev">❮</button>
+                    <button class="carousel-next">❯</button>
+                    <div class="carousel-dots">
+                    ${images.map((_, i) => `
+                        <span class="dot ${i === 0 ? 'active' : ''}"></span>
+                    `).join('')}
+                    </div>
+                `;
+
+                // Carousel functionality
+                let currentIndex = 0;
+                const imagesEls = container.querySelectorAll('.carousel-image');
+                const dots = container.querySelectorAll('.dot');
+
+                const updateCarousel = (newIndex) => {
+                    imagesEls[currentIndex].classList.remove('active');
+                    dots[currentIndex].classList.remove('active');
+                    currentIndex = newIndex;
+                    imagesEls[currentIndex].classList.add('active');
+                    dots[currentIndex].classList.add('active');
+                };
+
+                // Navigation handlers
+                container.querySelector('.carousel-prev').addEventListener('click', () => 
+                    updateCarousel((currentIndex - 1 + images.length) % images.length));
+                
+                container.querySelector('.carousel-next').addEventListener('click', () => 
+                    updateCarousel((currentIndex + 1) % images.length));
+
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => updateCarousel(index));
+                });
+            } 
+            else 
+            {
+                // Single image display
+                const img = document.createElement('img');
+                img.src = images[0];
+                img.className = 'carousel-image active';
+                container.appendChild(img);
+            }
 
             modal.style.display = 'flex';
 
@@ -475,5 +894,18 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Initially load the first panorama
-loadPanorama(1);
+// Function to extract panorama ID from URL path
+function getPanoramaIdFromUrl() {
+    // Get path segments (e.g., ["", "22"] for mysite.com/22)
+    const pathSegments = window.location.pathname.split('/');
+    
+    // Get the last numeric segment that's a valid number
+    const numericSegments = pathSegments.filter(segment => !isNaN(segment) && segment !== '');
+    const lastNumericSegment = numericSegments[numericSegments.length - 1];
+    
+    // Parse the ID or default to 1
+    return lastNumericSegment ? parseInt(lastNumericSegment, 10) : 1;
+}
+
+// Load panorama based on URL or default to 1
+loadPanorama(getPanoramaIdFromUrl());

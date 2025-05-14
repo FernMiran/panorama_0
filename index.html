@@ -169,6 +169,66 @@
 		line-height: 1.6;
 	}
 
+	/* Carousel container styling */
+	#modal-image-container {
+		position: relative;
+		max-width: 100%;
+		max-height: 300px;
+		margin-bottom: 20px;
+	}
+
+	/* Base image styling */
+	.carousel-image {
+		max-width: 100%;
+		max-height: 300px;
+		border-radius: 8px;
+		display: none;
+	}
+
+	/* Active image */
+	.carousel-image.active {
+		display: block;
+	}
+
+	/* Navigation buttons */
+		.carousel-prev,
+		.carousel-next {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(0,0,0,0.5);
+		color: white;
+		border: none;
+		padding: 10px 15px;
+		cursor: pointer;
+		border-radius: 50%;
+		font-size: 18px;
+	}
+
+	.carousel-prev { left: 10px; }
+	.carousel-next { right: 10px; }
+
+	/* Dots indicator */
+	.carousel-dots {
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 8px;
+	}
+
+	.dot {
+		width: 12px;
+		height: 12px;
+		background: #bbb;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: background 0.3s ease;
+	}
+
+	.dot.active { background: #717171; }
+	
 	/* Playback controls */
 	#player-container {
 		position: absolute;
@@ -258,7 +318,8 @@
     <!-- Modal -->
     <div id="info-modal" style="display: none;">
       <div class="modal-content">
-        <img src="./infospot1.jpg" alt="Demo Image" id="modal-image">
+        <!-- <img src="./infospot1.jpg" alt="Demo Image" id="modal-image"> -->
+		 <div id="modal-image-container"></div>
 		<h2 id="modal-title">Titúlo del modal</h2>
         <p id="modal-description">
           Esta es una reliquia muy antigua donde se pueden observar sus elementos con más detalle.
