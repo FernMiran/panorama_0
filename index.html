@@ -259,12 +259,18 @@
 		color: #fff;
 	}
 
-	/* playback controls row */
+	/* playback-controls container */
 	#playback-controls {
-		display: flex;
-		align-items: center;
-		gap: 12px;
+		position: relative;        /* keep pop‑over positioning working */
+		display: flex;             /* lay out children in a row */
+		align-items: center;       /* vertical centering */
+		justify-content: center;
+		gap: 20px;                 /* space between controls */
+		padding: 12px 20px;        /* internal buffer */
+		min-width: 320px;          /* ensure it doesn’t collapse too small */
+		min-height: 80px;          /* give it some heft */
 	}
+
 
 	#play-pause-button {
 		width: 60px;
@@ -283,10 +289,12 @@
 		padding: 0;
 	}
 	#play-pause-button svg {
-	width: 24px;
-	height: 24px;
-	fill: black;
+		width: 24px;
+		height: 24px;
+		fill: black;
 	}
+
+	/* Volume */
 	#volume-slider {
 		width: 120px;
 		height: 4px;
@@ -295,10 +303,43 @@
 
 	#volume-label {
 		font-size: 20px;
+		color: black;
 		font-family: "Futura Small Caps Light", Arial, sans-serif;
 	}
+	.icon-button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-size: 24px;
+		padding: 8px;
+	}
 
-	/* progress bar styling */
+	/* Hidden by default */
+	#volume-popover {
+		display: none;
+		position: absolute;
+		bottom: 100%;           /* sit above the controls */
+		right: 0;               /* align under the volume button */
+		background: white;
+		padding: 10px;
+		border-radius: 8px;
+		box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+		z-index: 10;
+		white-space: nowrap;
+	}
+
+	/* Show when .open is added */
+	#volume-popover.open {
+		display: block;
+	}
+
+	/* Optional: style slider and label inside pop-over */
+	#volume-popover input[type="range"] {
+		width: 120px;
+		margin-right: 8px;
+	}
+
+	/* Progress bar */
 	#progress-bar {
 		width: 100%;
 		height: 6px;
@@ -321,8 +362,13 @@
 	#time-display {
 		font-size: 20px;
 		font-family: "Futura Small Caps Light", Arial, sans-serif;
-		text-align: justify;
-		line-height: 1;
+		text-align: space-between;
+		align-items: center;
+		display: flex;
+		width: 100%;
+	}
+	#current-time {
+		margin-right: auto;
 	}
     </style>
 	
@@ -392,8 +438,13 @@
 		<!-- Playback controls -->
 		<div id="playback-controls">
 			<button id="play-pause-button" aria-label="Play/Pause"></button>
-			<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
-			<span id="volume-label">Volumen: 50%</span>
+			<!-- <button id="volume-button" aria-label="Volume" class="icon-button">
+				<img width="20" height="20" src="./volume.svg"></svg>
+			</button> -->
+			<div id="volume-popover">
+				<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
+				<span id="volume-label">50%</span>
+			</div>
 		</div>
 
 		<!-- Progress bar -->
@@ -402,8 +453,8 @@
 		<!-- Time display -->
 		<div id="time-display">
 			<span id="current-time">0:00</span>
-			<span id="duration" style="display: none;">0:00</span>
-			(<span id="remaining-time">-0:00</span>)
+			<!-- <span id="duration" style="display: none;">0:00</span> -->
+			<span id="remaining-time">-0:00</span>
 		</div>
 	</div>
 

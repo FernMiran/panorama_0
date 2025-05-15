@@ -3,6 +3,8 @@ const musicPlayer = document.getElementById('music-player');
 const playPauseButton = document.getElementById('play-pause-button');
 const volumeSlider = document.getElementById('volume-slider');
 const volumeLabel = document.getElementById('volume-label');
+const volumeButton  = document.getElementById('volume-button');
+const volumePopover = document.getElementById('volume-popover');
 
 const currentTimeEl   = document.getElementById('current-time');
 const durationEl      = document.getElementById('duration');
@@ -48,7 +50,7 @@ musicPlayer.volume = volumeSlider.value;
 
 volumeSlider.addEventListener('input', () => {
   musicPlayer.volume = volumeSlider.value;
-  volumeLabel.textContent = `Volumen: ${Math.round(volumeSlider.value * 100)}%`;
+  volumeLabel.textContent = `${Math.round(volumeSlider.value * 100)}%`;
 });
 
 // Inline SVGs
@@ -84,10 +86,21 @@ playPauseButton.addEventListener('click', () => {
   }
 });
 
-// Auto-start on page load
-window.addEventListener('load', () => {
-  musicPlayer.play();
-  setToPause();
+// Toggle pop‑over on button click
+volumeButton.addEventListener('click', (e) => {
+  e.stopPropagation();                // prevent immediate close
+  volumePopover.classList.toggle('open');
 });
+
+// Close pop‑over if clicking outside
+document.addEventListener('click', () => {
+  volumePopover.classList.remove('open');
+});
+
+// Auto-start on page load
+// window.addEventListener('load', () => {
+  // musicPlayer.play();
+  // setToPause();
+// });
 
 setToPlay();
