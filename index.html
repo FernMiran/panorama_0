@@ -267,16 +267,26 @@
 	}
 
 	#play-pause-button {
-		width: 80px;
-		height: 32px;
-		font-size: 20px;
+		width: 60px;
+		height: 60px;
+		font-size: 0px;
 		cursor: pointer;
 		border: none;
-		border-radius: 6px;
+		border-radius: 50%;
 		background-color: white;
-		color: black;
+		color: inherit;
+		/* Added to fix button scaling */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+		padding: 0;
 	}
-
+	#play-pause-button svg {
+	width: 24px;
+	height: 24px;
+	fill: black;
+	}
 	#volume-slider {
 		width: 120px;
 		height: 4px;
@@ -381,7 +391,7 @@
 	<div id="player-container">
 		<!-- Playback controls -->
 		<div id="playback-controls">
-			<button id="play-pause-button">></button>
+			<button id="play-pause-button" aria-label="Play/Pause"></button>
 			<input id="volume-slider" type="range" min="0" max="1" value="0.5" step="0.01">
 			<span id="volume-label">Volumen: 50%</span>
 		</div>
