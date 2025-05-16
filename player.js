@@ -21,7 +21,7 @@ function formatTime(sec) {
 
 // When metadata is loaded, display total duration
 musicPlayer.addEventListener('loadedmetadata', () => {
-  durationEl.textContent = formatTime(musicPlayer.duration);
+  // durationEl.textContent = formatTime(musicPlayer.duration);
   remainingTimeEl.textContent = `-${formatTime(musicPlayer.duration)}`;
 
   progressBar.min   = 0;
@@ -87,20 +87,36 @@ playPauseButton.addEventListener('click', () => {
 });
 
 // Toggle pop‑over on button click
-volumeButton.addEventListener('click', (e) => {
-  e.stopPropagation();                // prevent immediate close
-  volumePopover.classList.toggle('open');
-});
+// volumeButton.addEventListener('click', (e) => {
+//   e.stopPropagation();                // prevent immediate close
+//   volumePopover.classList.toggle('open');
+// });
 
 // Close pop‑over if clicking outside
-document.addEventListener('click', () => {
-  volumePopover.classList.remove('open');
-});
+// document.addEventListener('click', () => {
+//   volumePopover.classList.remove('open');
+// });
 
 // Auto-start on page load
-// window.addEventListener('load', () => {
+window.addEventListener('load', () => {
   // musicPlayer.play();
-  // setToPause();
-// });
+  setToPause();
+});
+
+window.changeAudio = function(url) {
+    console.log('player is changing audio to', url);
+    musicPlayer.pause();
+    musicPlayer.src = url;
+    
+    const playAfterLoad = () => {
+        musicPlayer.play()
+            .then(() => setToPause())
+            .catch(error => console.error('Autoplay blocked:', error));
+        musicPlayer.removeEventListener('canplay', playAfterLoad);
+    };
+    
+    musicPlayer.addEventListener('canplay', playAfterLoad);
+    musicPlayer.load();
+};
 
 setToPlay();
