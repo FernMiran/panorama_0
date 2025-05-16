@@ -955,8 +955,8 @@ function handleInteraction(event) {
 }
 
 // Replace the existing event listeners with these:
-window.addEventListener('click', handleInteraction);
-window.addEventListener('touchend', handleTouchEnd);
+// window.addEventListener('click', handleInteraction);
+// window.addEventListener('touchend', handleTouchEnd);
 
 function handleTouchEnd(event) {
     // Prevent default to avoid mouse emulation delay
@@ -973,10 +973,23 @@ function handleTouchEnd(event) {
     }
 }
 
-// Add touchstart handler to improve responsiveness
-window.addEventListener('touchstart', (event) => {
-    event.preventDefault();
+// // Add touchstart handler to improve responsiveness
+// window.addEventListener('touchstart', (event) => {
+//     event.preventDefault();
+// }, { passive: false });
+
+// — replace with —
+const canvas = renderer.domElement;
+
+// Use pointerdown → immediate response
+canvas.addEventListener('pointerdown', (event) => {
+  // Prevent page scroll/zoom but allow pointer events
+  event.preventDefault();
+  handleInteraction(event);
 }, { passive: false });
+
+// (You can also keep a 'click' fallback for desktop if you want)
+canvas.addEventListener('click', handleInteraction);
 
 // Load panorama based on URL or default to 1
 loadPanorama(getPanoramaIdFromUrl());
