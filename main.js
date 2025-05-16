@@ -690,7 +690,7 @@ function updateObjectHoverEffects() {
     raycaster.setFromCamera(mouse, camera);
     
     // Set raycaster precision for sprites
-    raycaster.params.Sprite = { threshold: 0.1 };
+    raycaster.params.Sprite = { threshold: 0.3 };
     
     // Check for intersections
     const intersects = raycaster.intersectObjects([
@@ -801,6 +801,8 @@ function animate() {
 
     renderer.render(scene, camera);
 }
+// Create a clock for animation timing
+const clock = new THREE.Clock();
 animate();
 
 // when the user *starts* interacting…
@@ -859,25 +861,89 @@ function handleInteraction(event) {
     // Create a raycaster
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
-    
-    // Check for intersection with hotspots
-    const intersects = raycaster.intersectObjects(hotspotsGroup.children);
-    
+
+    const intersects = raycaster.intersectObjects([
+        ...hotspotsGroup.children,
+        ...infospotsGroup.children
+    ]);
+
     if (intersects.length > 0) {
-        // Note the start time of the interaction for differentiating between move and tap
-        const interactionTime = Date.now();
-        
-        // If this is a very recent drag operation, we should ignore it
-        if (window.lastDragTime && (interactionTime - window.lastDragTime < 200)) {
-            return;
-        }
-        
         // Get target panorama ID from the clicked hotspot
         const target = intersects[0].object.userData.target;
-        
-        // Navigate to the new panorama
-        loadPanorama(target);
-        
+        if (intersects.length > 0) {
+            const object = intersects[0].object;
+            if (object.userData.type === 'hotspot') 
+            {
+                loadPanorama(object.userData.target);
+            } 
+            else if (object.userData.type === 'infospot') 
+            {
+                const modal = document.getElementById('info-modal');
+                const images = Array.isArray(object.userData.image) 
+                    ? object.userData.image 
+                    : [object.userData.image];
+                    
+                // Update modal content
+                modal.querySelector('#modal-title').textContent = object.userData.title;
+                modal.querySelector('#modal-description').textContent = object.userData.description;
+
+                // Handle image container
+                const container = modal.querySelector('#modal-image-container');
+                container.innerHTML = ''; // Clear previous content
+
+                if (images.length > 1) {
+                    // Generate carousel HTML
+                    container.innerHTML = `
+                        ${images.map((img, i) => `
+                        <img src="${img}" class="carousel-image ${i === 0 ? 'active' : ''}">
+                        `).join('')}
+                        <button class="carousel-prev">❮</button>
+                        <button class="carousel-next">❯</button>
+                        <div class="carousel-dots">
+                        ${images.map((_, i) => `
+                            <span class="dot ${i === 0 ? 'active' : ''}"></span>
+                        `).join('')}
+                        </div>
+                    `;
+
+                    // Carousel functionality
+                    let currentIndex = 0;
+                    const imagesEls = container.querySelectorAll('.carousel-image');
+                    const dots = container.querySelectorAll('.dot');
+
+                    const updateCarousel = (newIndex) => {
+                        imagesEls[currentIndex].classList.remove('active');
+                        dots[currentIndex].classList.remove('active');
+                        currentIndex = newIndex;
+                        imagesEls[currentIndex].classList.add('active');
+                        dots[currentIndex].classList.add('active');
+                    };
+
+                    // Navigation handlers
+                    container.querySelector('.carousel-prev').addEventListener('click', () => 
+                        updateCarousel((currentIndex - 1 + images.length) % images.length));
+                    
+                    container.querySelector('.carousel-next').addEventListener('click', () => 
+                        updateCarousel((currentIndex + 1) % images.length));
+
+                    dots.forEach((dot, index) => {
+                        dot.addEventListener('click', () => updateCarousel(index));
+                    });
+                } 
+                else 
+                {
+                    // Single image display
+                    const img = document.createElement('img');
+                    img.src = images[0];
+                    img.className = 'carousel-image active';
+                    container.appendChild(img);
+                }
+
+                modal.style.display = 'flex';
+
+                return; // Prevent modal from closing
+            }
+        }
         // Provide visual feedback (optional)
         intersects[0].object.scale.multiplyScalar(1.2);
         setTimeout(() => {
@@ -888,10 +954,29 @@ function handleInteraction(event) {
     }
 }
 
+// Replace the existing event listeners with these:
 window.addEventListener('click', handleInteraction);
-window.addEventListener('touchend', handleInteraction);
+window.addEventListener('touchend', handleTouchEnd);
 
-// Add click event listener for hotspots
+function handleTouchEnd(event) {
+    // Prevent default to avoid mouse emulation delay
+    event.preventDefault();
+    
+    if (event.changedTouches.length > 0) {
+        // Create a synthetic mouse event using last touch position
+        const touch = event.changedTouches[0];
+        const mouseEvent = new MouseEvent('click', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        handleInteraction(mouseEvent);
+    }
+}
+
+// Add touchstart handler to improve responsiveness
+window.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+}, { passive: false });
 
 // Load panorama based on URL or default to 1
 loadPanorama(getPanoramaIdFromUrl());
